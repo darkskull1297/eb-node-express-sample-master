@@ -33,7 +33,6 @@ if (cluster.isMaster) {
     var ddb = new AWS.DynamoDB();
 
     var ddbTable =  process.env.STARTUP_SIGNUP_TABLE;
-    var snsTopic =  process.env.NEW_SIGNUP_TOPIC;
     var app = express();
 
     app.set('view engine', 'ejs');
@@ -75,8 +74,7 @@ if (cluster.isMaster) {
                     'Message': 'Name: ' + req.body.name + "\r\nEmail: " + req.body.email 
                                         + "\r\nPreviewAccess: " + req.body.previewAccess 
                                         + "\r\nTheme: " + req.body.theme,
-                    'Subject': 'New user sign up!!!',
-                    'TopicArn': snsTopic
+                    'Subject': 'New user sign up!!!'
                 }, function(err, data) {
                     if (err) {
                         res.status(500).end();
